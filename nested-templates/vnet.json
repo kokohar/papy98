@@ -1,0 +1,72 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+  },
+  "variables": {
+    "VNETNAME": "Logdirect1",
+    "DNSIP": "10.64.10.52",
+    "OPSTrainingVNETPrefix": "10.16.0.0/24",
+    "OPSTrainingVNETSubnet1Name": "Public",
+    "OPSTrainingVNETSubnet1Prefix": "10.16.0.0/26",
+    "OPSTrainingVNETSubnet2Name": "Private",
+    "OPSTrainingVNETSubnet2Prefix": "10.16.0.64/26",
+    "OPSTrainingVNETSubnet3Name": "Databases",
+    "OPSTrainingVNETSubnet3Prefix": "10.16.0.128/26",
+    "OPSTrainingVNETSubnet4Name": "GatewaySubnet",
+    "OPSTrainingVNETSubnet4Prefix": "10.16.0.192/27"
+  },
+
+  "resources": [
+    {
+      "name": "Logdirect1",
+      "type": "Microsoft.Network/virtualNetworks",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2016-09-01",
+      "dependsOn": [],
+      "tags": {
+        "displayName": "Logdirect1"
+      },
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "[variables('OPSTrainingVNETPrefix')]"
+          ]
+        },
+        "dhcpOptions": {
+          "dnsServers": [
+            "[variables('DNSIP')]"
+          ]
+        },
+        "subnets": [
+          {
+            "name": "[variables('OPSTrainingVNETSubnet1Name')]",
+            "properties": {
+              "addressPrefix": "[variables('OPSTrainingVNETSubnet1Prefix')]"
+            }
+          },
+          {
+            "name": "[variables('OPSTrainingVNETSubnet2Name')]",
+            "properties": {
+              "addressPrefix": "[variables('OPSTrainingVNETSubnet2Prefix')]"
+            }
+          },
+          {
+            "name": "[variables('OPSTrainingVNETSubnet3Name')]",
+            "properties": {
+              "addressPrefix": "[variables('OPSTrainingVNETSubnet3Prefix')]"
+            }
+          },
+          {
+            "name": "[variables('OPSTrainingVNETSubnet4Name')]",
+            "properties": {
+              "addressPrefix": "[variables('OPSTrainingVNETSubnet4Prefix')]"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "outputs": {}
+
+  }
